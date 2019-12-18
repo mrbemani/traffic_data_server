@@ -2,10 +2,9 @@
 
 # -------------------------------------------------------------------------
 # AppConfig configuration made easy. Look inside private/appconfig.ini
-# Auth is for authenticaiton and access control
+# is for authenticaiton and access control
 # -------------------------------------------------------------------------
 from gluon.contrib.appconfig import AppConfig
-from gluon.tools import Auth
 
 # -------------------------------------------------------------------------
 # This scaffolding model makes your app work on Google App Engine too
@@ -75,46 +74,16 @@ response.form_label_separator = ''
 # -------------------------------------------------------------------------
 # response.static_version = '0.0.0'
 
-# -------------------------------------------------------------------------
-# Here is sample code if you need for
-# - email capabilities
-# - authentication (registration, login, logout, ... )
-# - authorization (role based authorization)
-# - services (xml, csv, json, xmlrpc, jsonrpc, amf, rss)
-# - old style crud actions
-# (more options discussed in gluon/tools.py)
-# -------------------------------------------------------------------------
 
-# host names must be a list of allowed host names (glob syntax allowed)
-auth = Auth(db, host_names=configuration.get('host.names'))
-
-# -------------------------------------------------------------------------
-# create all tables needed by auth, maybe add a list of extra fields
-# -------------------------------------------------------------------------
-auth.settings.extra_fields['auth_user'] = []
-auth.define_tables(username=False, signature=False)
 
 # -------------------------------------------------------------------------
 # configure email
 # -------------------------------------------------------------------------
-mail = auth.settings.mailer
-mail.settings.server = 'logging' if request.is_local else configuration.get('smtp.server')
-mail.settings.sender = configuration.get('smtp.sender')
-mail.settings.login = configuration.get('smtp.login')
-mail.settings.tls = configuration.get('smtp.tls') or False
-mail.settings.ssl = configuration.get('smtp.ssl') or False
 
-# -------------------------------------------------------------------------
-# configure auth policy
-# -------------------------------------------------------------------------
-auth.settings.registration_requires_verification = False
-auth.settings.registration_requires_approval = False
-auth.settings.reset_password_requires_verification = True
 
 # -------------------------------------------------------------------------  
 # read more at http://dev.w3.org/html5/markup/meta.name.html               
 # -------------------------------------------------------------------------
-response.meta.author = configuration.get('app.author')
 response.meta.description = configuration.get('app.description')
 response.meta.keywords = configuration.get('app.keywords')
 response.meta.generator = configuration.get('app.generator')
