@@ -1,9 +1,0 @@
-errors/*
-sessions/*
-uploads/*
-cache/*
-*.pyc
-*.log
-*.bak
-*.old
-*.example.*
