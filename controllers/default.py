@@ -9,13 +9,6 @@ def index():
     raise HTTP(403)
 
 
-# ---- API (example) -----
-@auth.requires_login()
-def api_get_user_email():
-    if not request.env.request_method == 'GET': raise HTTP(403)
-    return response.json({'status':'success', 'email':auth.user.email})
-
-
 # ---- action to server uploaded static content (required) ---
 @cache.action()
 def download():
