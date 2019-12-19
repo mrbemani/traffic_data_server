@@ -15,7 +15,7 @@ def new_record():
             plateType = request.post_vars['plateType'],
             plateColor = request.post_vars['plateColor'],
             license = request.post_vars['license']
-            )
+        )
         uniqueID = "T{}C{}L{}D{}".format(reqObj['checkPointTime'], reqObj['cameraID'], reqObj['laneNumber'], reqObj['direction'])
         ret = db.vehicle_records.insert(uniqueID=uniqueID, **reqObj)
         if ret is not None and ret > 0:
@@ -24,3 +24,5 @@ def new_record():
             return json.dumps(dict(status=0, error=1, message="Record not saved."))
     else:
         raise HTTP(400)
+
+
