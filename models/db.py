@@ -118,6 +118,20 @@ if configuration.get('scheduler.enabled'):
 # >>> for row in rows: print row.id, row.myfield
 # -------------------------------------------------------------------------
 
+db.define_table('vehicle_records',
+                Field('uniqueID', 'string', required=True),
+                Field('cameraID', 'integer', required=True, default=1),
+                Field('laneNumber', 'integer', required=True, default=1),
+                Field('direction', 'integer', required=False, default=0),
+                Field('checkPointTime', 'integer', required=True),
+                Field('vehicleClassId', 'integer', required=True),
+                Field('speedKmh', 'double', required=False, default=0),
+                Field('plateConfidence', 'integer', required=True),
+                Field('plateType', 'string', required=False, default=None),
+                Field('plateColor', 'string', required=False, default=None),
+                Field('license', 'string', required=False, default=None)
+                )
+
 # -------------------------------------------------------------------------
 # after defining tables, uncomment below to enable auditing
 # -------------------------------------------------------------------------
