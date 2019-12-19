@@ -10,7 +10,7 @@ def new_record():
             direction = int(request.post_vars['direction']),
             checkPointTime = int(request.post_vars['checkPointTime']),
             vehicleClassId = int(request.post_vars['vehicleClassId']),
-            speedKmh = round(request.post_vars['speed']),
+            speedKmh = round(float(request.post_vars['speed'])),
             plateConfidence = int(request.post_vars['plateConfidence']),
             plateType = request.post_vars['plateType'],
             plateColor = request.post_vars['plateColor'],
