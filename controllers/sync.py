@@ -21,7 +21,7 @@ def new_record():
         uniqueID = "T{}C{}L{}D{}".format(reqObj['checkPointTime'], reqObj['cameraID'], reqObj['laneNumber'], reqObj['direction'])
         ret = db.vehicle_records.insert(uniqueID=uniqueID, **reqObj)
         if ret is not None and ret > 0:
-            return json.dumps(dict(status=1, data=None, error=0, message="Record saved to DB."))
+            return json.dumps(dict(status=1, data=dict(record_id=ret), error=0, message="Record saved to DB."))
         else:
             return json.dumps(dict(status=0, data=None, error=1, message="Record not saved."))
     else:
