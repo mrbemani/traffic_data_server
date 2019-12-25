@@ -118,6 +118,14 @@ if configuration.get('scheduler.enabled'):
 # >>> for row in rows: print row.id, row.myfield
 # -------------------------------------------------------------------------
 
+PHOTO_URL_PREFIX = "/{}/static/capture/vehicles".format(request.application)
+
+db.define_table('photo',
+                Field('name', 'string', required=True),
+                Field('rcid', 'reference vehicle_records', required=True),
+                Field('upload_time', 'datetime', default=request.now)
+                )
+
 db.define_table('vehicle_records',
                 Field('uniqueID', 'string', required=True),
                 Field('cameraID', 'integer', required=True, default=1),
@@ -131,6 +139,8 @@ db.define_table('vehicle_records',
                 Field('plateColor', 'string', required=False, default=None),
                 Field('license', 'string', required=False, default=None)
                 )
+
+
 
 # -------------------------------------------------------------------------
 # after defining tables, uncomment below to enable auditing
