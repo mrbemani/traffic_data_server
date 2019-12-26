@@ -45,7 +45,7 @@ def add_photo(): # just pasted from ddw, to be fixed....
         new_name = "VEHICLE_{}_{}.{}".format(rcid, int(time.time()*1000), ext)
         image_data = str(request.post_vars.upfile.file.read())
         new_image_file_path = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture", "vehicles", new_name)
-        fp = open(new_image_file_path, 'w+')
+        fp = open(new_image_file_path, 'w+b')
         fp.write(image_data)
         fp.close()
         photodata = dict(
