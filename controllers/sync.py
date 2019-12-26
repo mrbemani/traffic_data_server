@@ -31,8 +31,8 @@ def new_record():
 def add_photo(): # just pasted from ddw, to be fixed....
     ret = json.dumps(dict(status=0, data=None, error=-1, message="unknown error"))
     rcid = 0
-    if True:
-    #try:
+    #if True:
+    try:
         rcid = int(request.get_vars['rcid'])
         if rcid < 1:
             raise Exception("rcid parameter is invalid")
@@ -71,13 +71,13 @@ def add_photo(): # just pasted from ddw, to be fixed....
                 data=None
             )
         ret = json.dumps(info)
-    #except Exception as e:
-    #    info = dict(
-    #        status=0, 
-    #        error=1, 
-    #        message=repr(e),
-    #        data=None
-    #    )
-    #    ret = json.dumps(info)
-    #finally:
+    except Exception as e:
+        info = dict(
+            status=0, 
+            error=1, 
+            message=repr(e),
+            data=None
+        )
+        ret = json.dumps(info)
+    finally:
         return ret
