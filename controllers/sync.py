@@ -31,7 +31,8 @@ def new_record():
 def add_photo(): # just pasted from ddw, to be fixed....
     ret = json.dumps(dict(status=0, data=None, error=-1, message="unknown error"))
     rcid = 0
-    try:
+    if True:
+    #try:
         rcid = int(request.get_vars['rcid'])
         if rcid < 1:
             raise Exception("rcid parameter is invalid")
@@ -43,8 +44,8 @@ def add_photo(): # just pasted from ddw, to be fixed....
             ext = 'gif'
         new_name = "VEHICLE_{}_{}.{}".format(rcid, int(time.time()*1000), ext)
         image_data = str(request.post_vars.upfile.file.read())
-        new_image_file_path = os.path.join(os.path.abspath('.'), "applications", *(PHOTO_URL_PREFIX[1:].split('/')), new_name)
-        fp = open(new_image_file_path, 'w+b')
+        new_image_file_path = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture", "vehicles", new_name)
+        fp = open(new_image_file_path, 'w+')
         fp.write(image_data)
         fp.close()
         photodata = dict(
@@ -70,13 +71,13 @@ def add_photo(): # just pasted from ddw, to be fixed....
                 data=None
             )
         ret = json.dumps(info)
-    except Exception as e:
-        info = dict(
-            status=0, 
-            error=1, 
-            message=repr(e),
-            data=None
-        )
-        ret = json.dumps(info)
-    finally:
+    #except Exception as e:
+    #    info = dict(
+    #        status=0, 
+    #        error=1, 
+    #        message=repr(e),
+    #        data=None
+    #    )
+    #    ret = json.dumps(info)
+    #finally:
         return ret

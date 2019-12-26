@@ -136,7 +136,7 @@ db.define_table('vehicle_records',
 
 db.define_table('photo',
                 Field('name', 'string', required=True),
-                Field('rcid', 'reference vehicle_records', required=True),
+                Field('record_id', 'reference vehicle_records', required=True),
                 Field('upload_time', 'datetime', default=request.now)
                 )
 
