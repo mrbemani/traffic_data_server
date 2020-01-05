@@ -124,15 +124,15 @@ PHOTO_URL_PREFIX = "/{}/static/capture/vehicles".format(request.application)
 db.define_table('tunnel', 
                 Field('uniqueID', length=128, unique=True),
                 Field('displayName', length=128, required=False),
-                Field('textDescription', 'text', length=512, required=False)
+                Field('textDescription', 'text', length=1024, required=False)
                 )
 
 
 db.define_table('pole',
-                Field('uniqueID', 'string', required=True, unique=True),
-                Field('displayName', 'string', required=False, default=None),
-                #Field('textDescription', 'text', required=False, default=''),
-                Field('tunnelID', 'reference tunnel', required=False, default=None)
+                Field('uniqueID', 'string', length=128, required=True, unique=True),
+                Field('displayName', 'string', length=128, required=False),
+                Field('textDescription', 'text', length=1024, required=False),
+                Field('tunnelID', 'reference tunnel', required=False)
                 )
 
 
