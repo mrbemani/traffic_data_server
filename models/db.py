@@ -124,14 +124,14 @@ PHOTO_URL_PREFIX = "/{}/static/capture/vehicles".format(request.application)
 db.define_table('tunnel', 
                 Field('uniqueID', 'string', required=True, unique=True),
                 Field('displayName', 'string', required=False, default=None),
-                Field('textDescription', 'string', required=False, length=512, default='')
+                #Field('textDescription', 'string', required=False, length=512, default='')
                 )
 
 
 db.define_table('pole',
                 Field('uniqueID', 'string', required=True, unique=True),
                 Field('displayName', 'string', required=False, default=None),
-                Field('textDescription', 'text', required=False, default=''),
+                #Field('textDescription', 'text', required=False, default=''),
                 Field('tunnelID', 'reference tunnel', required=False, default=None)
                 )
 
@@ -139,7 +139,7 @@ db.define_table('pole',
 db.define_table('camera',
                 Field('uniqueID', 'string', required=True, unique=True),
                 Field('displayName', 'string', required=True),
-                Field('textDescription', 'text', required=False, default=''),
+                #Field('textDescription', 'text', required=False, default=''),
                 Field('poleID', 'reference pole', required=False, default=None)
                 )
 
