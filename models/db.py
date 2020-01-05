@@ -156,9 +156,9 @@ db.define_table('poleInfo',
 
 db.define_table('cameraInfo',
                 Field('cameraID', 'reference camera', required=True),
-                Field('IPaddress', 'string', length=64 required=True),
-                Field('resW', 'integer', required=False),
-                Field('resH', 'integer', required=False),
+                Field('IPaddress', 'string', length=64, required=True),
+                Field('resW', 'integer', required=False, default=1920),
+                Field('resH', 'integer', required=False, default=1080),
                 Field('config', 'text', required=True)
                 )
 
