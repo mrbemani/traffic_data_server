@@ -4,35 +4,45 @@
 import json
 
 
-def records_in_timegap():
-    if request.method == 'GET':
-        datetime_start = int(request.get_vars['datetime_start'])
-        datetime_end = int(request.get_vars['datetime_end'])
-        camera_id = -1
-        lane_number = -1
-        dt_condition = ((db.vehicle_records.checkPointTime>=datetime_start) & (db.vehicle_records.checkPointTime<datetime_end))
-        camera_condition = (db.vehicle_records.cameraID>=0)
-        lane_condition = (db.vehicle_records.laneNumber>=0)
-        direction_condition = (db.vehicle_records.direction>=0)
-        license_condition = (db.vehicle_records.license!='_N_A_P_L_V_')
-        if 'camera_id' in request.get_vars:
-            camera_id = int(request.get_vars['camera_id'])
-            camera_condition = (db.vehicle_records.cameraID==camera_id)
-        if 'lane_number' in request.get_vars:
-            lane_number = int(request.get_var['lane_number'])
-            lane_condition = (db.vehicle_records.laneNumber==lane_number)
-        if 'direction' in request.get_vars:
-            direction = int(request.get_vars['direction'])
-            direction_condition = (db.vehicle_records.direction==direction)
-        if 'license' in request.get_vars:
-            license = request.get_vars['license']
-            license_condition = (db.vehicle_records.license.contains(license))
-        rs = db( dt_condition & camera_condition & lane_condition & direction_condition & license_condition ).select()
-        ret = []
-        for rc in rs:
-            ret.append(rc.as_dict())
-        return json.dumps(dict(status=1, data=ret, error=0, message="Data retrieved."))
-    else:
-        return json.dumps(dict(status=0, data=[], error=1, message="Error occured while retrieving data."))
+def get_camera_by_uid():
+    ret = json.dumps(dict(status=0, data=[], error=-1, message="Unknown error."))
+    if len(request.args) < 1:
+        return json.dumps(dict(status=0, data=None, error=1, message="No cameraUID presented."))
+    camera_uid = request.args[0]
+    return camera_rcid
 
+
+def get_camera_by_id():
+    ret = json.dumps(dict(status=0, data=[], error=-1, message="Unknown error."))
+    if len(request.args) < 1:
+        return json.dumps(dict(status=0, data=None, error=1, message="No cameraID presented."))
+    camera_rcid = int(request.args[0])
+    camera_rc = db.camera[camera_rcid]
+    if camera_rc is None:
+        return json.dumps(dict(status=0, data=None, error=2, message="Invalid cameraID."))
+    return json.dumps(dict(status=1, data=camera_rc.as_dict(), error=0, message="Camera retrieved."))
+
+
+def get_cameras_by_pole_id():
+    ret = json.dumps(dict(status=0, data=[], error=-1, message="Unknown error."))
+    if len(request.args) < 1:
+        return json.dumps(dict(status=0, data=None, error=1, message="No poleID presented."))
+    pole_rcid = int(request.args[0])
+    cameras_on_pole = db(db.camera.poleID == pole_rcid).select()
+    ret_cameras = []
+    for c in cameras_on_pole:
+        ret_cameras.append(c.as_dict())
+    return json.dumps(dict(status=1, data=ret_cameras, error=0, message="Camera list retrieved."))
+
+
+def get_poles_by_tunnel_id():
+    ret = json.dumps(dict(status=0, data=[], error=-1, message="Unknown error."))
+    if len(request.args) < 1:
+        return json.dumps(dict(status=0, data=None, error=1, message="No poleID presented."))
+    pole_rcid = int(request.args[0])
+    cameras_on_pole = db(db.camera.poleID == pole_rcid).select()
+    ret_cameras = []
+    for c in cameras_on_pole:
+        ret_cameras.append(c.as_dict())
+    return json.dumps(dict(status=1, data=ret_cameras, error=0, message="Camera list retrieved."))
 
