@@ -137,10 +137,10 @@ db.define_table('pole',
 
 
 db.define_table('camera',
-                Field('uniqueID', 'string', required=True, unique=True),
-                Field('displayName', 'string', required=True),
-                #Field('textDescription', 'text', required=False, default=''),
-                Field('poleID', 'reference pole', required=False, default=None)
+                Field('uniqueID', 'string', length=128, required=True, unique=True),
+                Field('displayName', 'string', length=128, required=True),
+                Field('textDescription', 'text', length=1024, required=False),
+                Field('poleID', 'reference pole', required=False)
                 )
 
 
@@ -156,25 +156,25 @@ db.define_table('poleInfo',
 
 db.define_table('cameraInfo',
                 Field('cameraID', 'reference camera', required=True),
-                Field('IPaddress', 'string', required=True),
-                Field('resW', 'integer', required=False, default=1920),
-                Field('resH', 'integer', required=False, default=1080),
+                Field('IPaddress', 'string', length=64 required=True),
+                Field('resW', 'integer', required=False),
+                Field('resH', 'integer', required=False),
                 Field('config', 'text', required=True)
                 )
 
 
 db.define_table('vehicle_records',
-                Field('uniqueID', 'string', required=True, unique=True),
+                Field('uniqueID', 'string', length=128, required=True, unique=True),
                 Field('cameraID', 'reference camera', required=True),
-                Field('laneNumber', 'integer', required=True, default=1),
-                Field('direction', 'integer', required=False, default=0),
+                Field('laneNumber', 'integer', required=True),
+                Field('direction', 'integer', required=False),
                 Field('checkPointTime', 'integer', required=True),
                 Field('vehicleClassId', 'integer', required=True),
-                Field('speedKmh', 'double', required=False, default=0),
+                Field('speedKmh', 'double', required=False),
                 Field('plateConfidence', 'integer', required=True),
-                Field('plateType', 'string', required=False, default=None),
-                Field('plateColor', 'string', required=False, default=None),
-                Field('license', 'string', required=False, default=None)
+                Field('plateType', 'string', length=128, required=False),
+                Field('plateColor', 'string', length=128, required=False),
+                Field('license', 'string', length=128, required=False)
                 )
 
 
