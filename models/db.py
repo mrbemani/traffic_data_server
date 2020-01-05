@@ -124,14 +124,14 @@ PHOTO_URL_PREFIX = "/{}/static/capture/vehicles".format(request.application)
 db.define_table('tunnel', 
                 Field('uniqueID', length=128, unique=True),
                 Field('displayName', length=128, required=False),
-                Field('textDescription', 'text', length=1024, required=False)
+                Field('textDescription', 'text', required=False)
                 )
 
 
 db.define_table('pole',
                 Field('uniqueID', 'string', length=128, required=True, unique=True),
                 Field('displayName', 'string', length=128, required=False),
-                Field('textDescription', 'text', length=1024, required=False),
+                Field('textDescription', 'text', required=False),
                 Field('tunnelID', 'reference tunnel', required=False)
                 )
 
@@ -139,7 +139,7 @@ db.define_table('pole',
 db.define_table('camera',
                 Field('uniqueID', 'string', length=128, required=True, unique=True),
                 Field('displayName', 'string', length=128, required=True),
-                Field('textDescription', 'text', length=1024, required=False),
+                Field('textDescription', 'text', required=False),
                 Field('poleID', 'reference pole', required=False)
                 )
 
@@ -170,8 +170,8 @@ db.define_table('vehicle_records',
                 Field('direction', 'integer', required=False),
                 Field('checkPointTime', 'integer', required=True),
                 Field('vehicleClassId', 'integer', required=True),
-                Field('speedKmh', 'double', required=False),
-                Field('plateConfidence', 'integer', required=True),
+                Field('speedKmh', 'double', required=False, default=0),
+                Field('plateConfidence', 'integer', required=True, default=0),
                 Field('plateType', 'string', length=128, required=False),
                 Field('plateColor', 'string', length=128, required=False),
                 Field('license', 'string', length=128, required=False)
