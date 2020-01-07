@@ -12,6 +12,7 @@ def new_record():
             laneNumber = int(request.post_vars['laneNumber']),
             direction = int(request.post_vars['direction']),
             checkPointTime = int(request.post_vars['checkPointTime']),
+            vehicleClassConfidence = int(request.post_vars['vehicleClassConfidence']),
             vehicleClassId = int(request.post_vars['vehicleClassId']),
             speedKmh = round(float(request.post_vars['speed'])),
             plateConfidence = int(request.post_vars['plateConfidence']),
