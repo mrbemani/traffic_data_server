@@ -33,7 +33,7 @@ def new_record():
             # poleID = rc_camera.poleID
             # tunnelID = rc_camera.poleID.tunnelID
         uniqueID = "TM{}C{}L{}D{}".format(ckpt_minisec, cameraID, reqObj['laneNumber'], reqObj['direction'])
-        ret = db.vehicle_records.insert(uniqueID=uniqueID, cameraID, **reqObj)
+        ret = db.vehicle_records.insert(uniqueID=uniqueID, cameraID=cameraID, **reqObj)
         if ret is not None and ret > 0:
             return json.dumps(dict(status=1, data=dict(record_id=ret), error=0, message="Record saved to DB."))
         else:
