@@ -7,7 +7,6 @@ import os
 def new_record():
     if request.method == 'POST':
         cameraUID = request.post_vars['cameraUID']
-        is_camera_rcid = bool(int(request.post_vars['is_camera_rcid'] or '0'))
         reqObj = dict(
             laneNumber = int(request.post_vars['laneNumber']),
             direction = int(request.post_vars['direction']),
@@ -23,18 +22,8 @@ def new_record():
         ckpt_minisec = reqObj["checkPointTime"]
         if reqObj["checkPointTime"] > 9999999999:
             reqObj['checkPointTime'] = int(reqObj['checkPointTime'] / 1000)
-        cameraID = 0
-        if is_camera_rcid:
-            cameraID = int(cameraUID)
-        else:
-            rc_camera = db(db.camera.uniqueID == cameraUID).select().first()
-            if rc_camera is None:
-                return json.dumps(dict(status=0, data=None, error=3, message="Invalid cameraUID"))
-            cameraID = rc_camera._id
-            # poleID = rc_camera.poleID
-            # tunnelID = rc_camera.poleID.tunnelID
-        uniqueID = "TM{}C{}L{}D{}".format(ckpt_minisec, cameraID, reqObj['laneNumber'], reqObj['direction'])
-        ret = db.vehicle_records.insert(uniqueID=uniqueID, cameraID=cameraID, **reqObj)
+        uniqueID = "TM{}C{}L{}D{}".format(ckpt_minisec, cameraUID, reqObj['laneNumber'], reqObj['direction'])
+        ret = db.vehicle_records.insert(uniqueID=uniqueID, cameraUID=cameraUID, **reqObj)
         if ret is not None and ret > 0:
             return json.dumps(dict(status=1, data=dict(record_id=ret), error=0, message="Record saved to DB."))
         else:

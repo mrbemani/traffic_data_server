@@ -121,54 +121,9 @@ if configuration.get('scheduler.enabled'):
 PHOTO_URL_PREFIX = "/{}/static/capture/vehicles".format(request.application)
 
 
-db.define_table('tunnel', 
-                Field('uniqueID', length=128, unique=True),
-                Field('displayName', length=128, required=False),
-                Field('textDescription', 'text', required=False),
-                format='%(displayName)s [%(uniqueID)s]'
-                )
-
-
-db.define_table('pole',
-                Field('uniqueID', 'string', length=128, required=True, unique=True),
-                Field('displayName', 'string', length=128, required=False),
-                Field('textDescription', 'text', required=False),
-                Field('tunnelID', 'reference tunnel', required=False),
-                format='%(displayName)s [%(uniqueID)s]'
-                )
-
-
-db.define_table('camera',
-                Field('uniqueID', 'string', length=128, required=True, unique=True),
-                Field('displayName', 'string', length=128, required=True),
-                Field('textDescription', 'text', required=False),
-                Field('poleID', 'reference pole', required=False),
-                format='%(displayName)s [%(uniqueID)s]'
-                )
-
-
-db.define_table('tunnelInfo',
-                Field('tunnelID', 'reference tunnel', required=True),
-                )
-
-
-db.define_table('poleInfo',
-                Field('poleID', 'reference pole', required=True),
-                )
-
-
-db.define_table('cameraInfo',
-                Field('cameraID', 'reference camera', required=True),
-                Field('IPaddress', 'string', length=64, required=True),
-                Field('resW', 'integer', required=False, default=1920),
-                Field('resH', 'integer', required=False, default=1080),
-                Field('config', 'text', required=True)
-                )
-
-
 db.define_table('vehicle_records',
                 Field('uniqueID', 'string', length=128, required=True, unique=True),
-                Field('cameraID', 'reference camera', required=True),
+                Field('cameraUID', 'string', length=128, required=True),
                 Field('laneNumber', 'integer', required=True),
                 Field('direction', 'integer', required=False),
                 Field('checkPointTime', 'integer', required=True),
@@ -184,6 +139,7 @@ db.define_table('vehicle_records',
 
 db.define_table('photo',
                 Field('name', 'string', required=True),
+                Field('thumbnail', 'string', required=False),
                 Field('record_id', 'reference vehicle_records', required=True),
                 Field('upload_time', 'datetime', default=request.now)
                 )
