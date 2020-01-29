@@ -4,9 +4,9 @@
     </head>
     <body>
         {{=outtext}}
-        
+
         <script>
-        settimeout(function() {
+        setTimeout(function() {
             location.href="{{=URL(c='tsutils', f='tsu_rearrange_snapshots', vars=dict(idx=idx))}}";
         }, 500);
         </script>
