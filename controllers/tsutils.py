@@ -13,7 +13,7 @@ def tsu_rearrange_snapshots():
     capdir = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture")
     rs = db(db.vehicle_records._id>=startidx).select(db.vehicle_records.ALL, limitby=(startidx, startidx+maxlen))
     for itm in rs:
-        ph = db(db.photo.record_id==itm._id).select().first()
+        ph = db(db.photo.record_id==itm.id).select().first()
         if ph is not None:
             fin = os.path.join(capdir, "vehicles", ph.name)
             vehclsdir = os.path.join(capdir, str(itm.vehicleClassId))
