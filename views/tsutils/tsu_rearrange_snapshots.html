@@ -3,12 +3,11 @@
         <title>tsutil - rearrange snapshots</title>
     </head>
     <body>
-        {{=outtext}}
-
-        <script>
-        setTimeout(function() {
-            location.href="{{=URL(c='tsutils', f='tsu_rearrange_snapshots', vars=dict(idx=idx))}}";
-        }, 500);
-        </script>
+{{=outtext}}
+    <script>
+    setTimeout(function() {
+        location.href="{{=URL(c='tsutils', f='tsu_rearrange_snapshots', vars=dict(idx=idx))}}";
+    }, 500);
+    </script>
     </body>
 </html>
