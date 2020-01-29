@@ -9,7 +9,7 @@ def tsu_rearrange_snapshots():
     maxlen = 100
     outtext = ""
     if "idx" in request.get_vars:
-        startidx = request.get_vars["idx"]
+        startidx = int(request.get_vars["idx"])
     capdir = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture")
     rs = db(db.vehicle_records._id>startidx).select(db.vehicle_records.ALL, limitby=(startidx, startidx+maxlen))
     for itm in rs:
