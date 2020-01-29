@@ -11,7 +11,7 @@ def tsu_rearrange_snapshots():
     if "idx" in request.get_vars:
         startidx = int(request.get_vars["idx"])
     capdir = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture")
-    rs = db(db.vehicle_records._id>startidx).select(db.vehicle_records.ALL, limitby=(startidx, startidx+maxlen))
+    rs = db(db.vehicle_records._id>=startidx).select(db.vehicle_records.ALL, limitby=(startidx, startidx+maxlen))
     for itm in rs:
         ph = db(db.photo.record_id==itm._id).select().first()
         if ph is not None:
@@ -27,7 +27,7 @@ def tsu_rearrange_snapshots():
             shutil.copy(fin, fout)
             outtext += "<p>{} => {}</p>\r\n".format(fin, fout)
         startidx += 1
-    return dict(outtext=outtext, idx=startidx)
+    return dict(outtext=outtext, idx=startidx+maxlen)
 
 
     
