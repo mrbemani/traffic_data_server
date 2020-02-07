@@ -1,0 +1,13 @@
+<html lang="zh-cn">
+    <head>
+        <title>tsutil - generate thumbnails</title>
+    </head>
+    <body>
+{{=outtext}}
+    <script>
+    setTimeout(function() {
+        location.href="{{=URL(c='tsutils', f='tsu_generate_thumbnails', vars=dict(idx=idx))}}";
+    }, 500);
+    </script>
+    </body>
+</html>
