@@ -3,6 +3,7 @@
 import json
 import time
 import os
+from PIL import Image
 
 def new_record():
     if request.method == 'POST':
@@ -46,19 +47,30 @@ def add_photo(): # just pasted from ddw, to be fixed....
             ext = 'png'
         elif ftype.lower().endswith('/gif'):
             ext = 'gif'
-        new_name = "VEHICLE_{}_{}.{}".format(rcid, int(time.time()*1000), ext)
+        new_name_prefix = "VEHICLE_{}_{}".format(rcid, int(time.time()*1000))
+        new_name = new_name_prefix + "." + ext
         image_data = request.post_vars.upfile.file.read()
-        new_image_file_path = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture", "vehicles", new_name)
+        capdir = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture", "vehicles")
+        new_image_file_path = os.path.join(capdir, new_name)
         fp = open(new_image_file_path, 'w+b')
         fp.write(image_data)
         fp.close()
+        # write thumbnail
+        thumbsize = (60, 60)
+        thumbs_dir = os.path.join(capdir, "thumbs")
+        ph_thumb_name = new_name_prefix + ".thumb_60x60." + ext
+        fout = os.path.join(thumbs_dir, ph_thumb_name)
+        im = Image.open(new_image_file_path)
+        im.thumbnail(thumbsize)
+        im.save(fout, "JPEG")
         photodata = dict(
             name=new_name,
+            thumbnail="thumbs/{}".format(ph_thumb_name),
             url="{}/{}".format(PHOTO_URL_PREFIX, new_name),
             size=len(image_data),
             ftype=ftype
         )
-        phid = db.photo.insert(name=photodata['name'], record_id=rcid)
+        phid = db.photo.insert(name=photodata['name'], thumbnail=photodata['thumbnail'], record_id=rcid)
         if phid > 0:
             photodata['photo_record_id'] = phid
             info = dict(
