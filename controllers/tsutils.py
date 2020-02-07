@@ -39,7 +39,7 @@ def tsu_generate_thumbnails():
     if "idx" in request.get_vars:
         startidx = int(request.get_vars["idx"])
     capdir = os.path.join(os.path.abspath('.'), "applications", request.application, "static", "capture", "vehicles")
-    rs = db(db.photo._id>startidx).select(db.photo.ALL, limitby=(0, maxlen))
+    rs = db((db.photo._id>startidx) & (db.photo.thumbnail==None)).select(db.photo.ALL, limitby=(0, maxlen))
     last_id = startidx
     thumbsize = (60, 60)
     thumbs_dir = os.path.join(capdir, "thumbs")
