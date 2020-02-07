@@ -59,7 +59,7 @@ def tsu_generate_thumbnails():
         im.save(fout, "JPEG")
         outtext += "[{}] {}... \r\n".format(ph.id, fin)
         last_id = ph.id
-        db.mytable[ph.id] = dict(thumbnail="thumbs/{}".format(ph_new_name))
+        db.photo[ph.id] = dict(thumbnail="thumbs/{}".format(ph_new_name))
     return dict(outtext=outtext, idx=last_id)
 
     
