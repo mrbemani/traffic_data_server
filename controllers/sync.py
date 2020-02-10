@@ -103,7 +103,6 @@ def update_equipment_runtime():
     if "gid" not in request.get_vars:
         raise HTTP(400)
         return
-    from MySQLdb import _mysql
     gid = int(request.get_vars['gid'])
     data_json = request.body.read()
     if gid <= 0 or len(data_json) < 1:
