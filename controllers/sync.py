@@ -101,16 +101,16 @@ def add_photo(): # just pasted from ddw, to be fixed....
 
 def update_equipment_runtime():
     if "gid" not in request.get_vars:
-        raise HTTP(400)
+        raise HTTP(400, "invalid query")
         return
     gid = int(request.get_vars['gid'])
     data_json = request.body.read()
     if gid <= 0 or len(data_json) < 1:
-        raise HTTP(400)
+        raise HTTP(400, "invalid query")
         return
     import sys
     try:
         db_ret = db.executesql("UPDATE equipment_runtime SET data_json=%s WHERE gid=%s;", (data_json, gid))
-        return data_json
+        return "ok"
     except:
         return sys.exc_info()[1]
