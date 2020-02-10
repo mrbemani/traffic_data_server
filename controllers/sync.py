@@ -97,3 +97,21 @@ def add_photo(): # just pasted from ddw, to be fixed....
         ret = json.dumps(info)
     finally:
         return ret
+
+
+def update_equipment_runtime():
+    if "tunnelid" not in request.get_vars:
+        raise HTTP(400)
+        return
+    from MySQLdb import _mysql
+    gid = int(request.get_vars['gid'])
+    data_json = request.body.read()
+    if gid <= 0 or len(data_json) < 1:
+        raise HTTP(400)
+        return
+    import sys
+    try:
+        db_ret = db.executesql("UPDATE equipment_runtime SET data_json=\"{data_json}\" WHERE gid={gid};", dict(data_json=data_json, gid=gid))
+        return db_ret
+    except:
+        return sys.exc_info()[2]

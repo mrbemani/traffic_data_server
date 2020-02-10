@@ -144,6 +144,8 @@ db.define_table('photo',
                 Field('upload_time', 'datetime', default=request.now)
                 )
 
+
+
 # -------------------------------------------------------------------------
 # after defining tables, uncomment below to enable auditing
 # -------------------------------------------------------------------------
