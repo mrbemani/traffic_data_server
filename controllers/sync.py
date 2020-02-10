@@ -111,6 +111,6 @@ def update_equipment_runtime():
     import sys
     try:
         db_ret = db.executesql("UPDATE equipment_runtime SET data_json=%s WHERE gid=%s;", (data_json, gid))
-        return db_ret
+        return data_json
     except:
         return sys.exc_info()[1]
