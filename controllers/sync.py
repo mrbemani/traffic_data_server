@@ -100,7 +100,7 @@ def add_photo(): # just pasted from ddw, to be fixed....
 
 
 def update_equipment_runtime():
-    if "tunnelid" not in request.get_vars:
+    if "gid" not in request.get_vars:
         raise HTTP(400)
         return
     from MySQLdb import _mysql
