@@ -105,14 +105,15 @@ def update_equipment_runtime():
         return
     gid = int(request.get_vars['gid'])
     data_json = request.body.read()
-    return data_json
-    """
+    from MySQLdb import _mysql
     if gid <= 0 or len(data_json) < 1:
         raise HTTP(400, "invalid query")
         return
     import sys
+    data = _mysql.escape_string(data_json)
+    return data
     try:
-        db_ret = db.executesql("UPDATE equipment_runtime SET data_json=%s WHERE gid=%s;", (data_json, gid))
+        db_ret = db.executesql("UPDATE equipment_runtime SET data_json=\"{}\" WHERE gid={};".format(data_json, gid))
         return "ok"
     except:
         return sys.exc_info()[1]
