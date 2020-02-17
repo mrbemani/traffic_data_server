@@ -105,6 +105,8 @@ def update_equipment_runtime():
         return
     gid = int(request.get_vars['gid'])
     data_json = request.body.read()
+    return data_json
+    """
     if gid <= 0 or len(data_json) < 1:
         raise HTTP(400, "invalid query")
         return
@@ -114,3 +116,4 @@ def update_equipment_runtime():
         return "ok"
     except:
         return sys.exc_info()[1]
+    """
