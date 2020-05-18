@@ -62,4 +62,9 @@ def tsu_generate_thumbnails():
         db.photo[ph.id] = dict(thumbnail="thumbs/{}".format(ph_new_name))
     return dict(outtext=outtext, idx=last_id)
 
+
+def autofillCheckPointDateTime():
+    rs = db((db.vehicle_records.checkPointDateTime==None).select(db.vehicle_records.checkPointDateTime, db.vehicle_records.checkPointTime)
+    #for rc in rs:
+    #    datetime.rc.checkPointTime
     
