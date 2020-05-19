@@ -8,11 +8,12 @@ from PIL import Image
 def new_record():
     if request.method == 'POST':
         cameraUID = request.post_vars['cameraUID']
+        chkpt = int(request.post_vars['checkPointTime'])
         reqObj = dict(
             laneNumber = int(request.post_vars['laneNumber']),
             direction = int(request.post_vars['direction']),
-            checkPointTime = int(request.post_vars['checkPointTime']),
-            checkPointDateTime = datetime.fromtimestamp(int(request.post_vars['checkPointTime'])/1000.0),
+            checkPointTime = chkpt,
+            checkPointDateTime = datetime.fromtimestamp(float(chkpt) if chkpt <= 9999999999 else chkpt/1000.0),
             vehicleClassConfidence = int(request.post_vars['vehicleClassConfidence']),
             vehicleClassId = int(request.post_vars['vehicleClassId']),
             speedKmh = round(float(request.post_vars['speed'])),
